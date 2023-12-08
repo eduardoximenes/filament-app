@@ -11,6 +11,17 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    /**
+    * Adding my API token
+    */
+    protected $apiToken = "16|oASU1EIXVJwEesbraJNl385nNElU1cd0i09p3eFF38cbc03e";
+    // protected $apiToken = "17|ceGT2b8elntCnbwKXqYfvV2ejnVdR5SFS2za4Ch5991eaa59";
+    // protected $apiToken = "18|OY4D8perXxM2SkMR2RwxNhifvEhzmykTrVo8YNePfb21021a";
+
+    public function getToken()
+    {
+        return $this->apiToken;
+    }
 
     /**
      * The attributes that are mass assignable.

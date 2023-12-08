@@ -8,6 +8,7 @@ use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Http;
+use App\Models\User;
 
 
 class CreateCustomer extends CreateRecord
@@ -16,7 +17,10 @@ class CreateCustomer extends CreateRecord
     
     protected function handleRecordCreation(array $data): Customer
     {
-        $attempt =  Http::Post('http://localhost:8001/api/v1/customers', $data)->json();
+        $user = new User;
+        $apiToken = $user->getToken();
+
+        $attempt =  Http::withToken($apiToken, $type = 'Bearer')->post('http://localhost:8001/api/v1/customers', $data)->json();
 
         if($attempt == null){
             Notification::make()
