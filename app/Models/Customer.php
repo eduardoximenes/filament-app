@@ -26,13 +26,13 @@ class Customer extends Model
 
     ];
 
-    public function getRows(): array
+    public function getRows($page = 1): array
     {
         $user = new User;
         $apiToken = $user->getToken();
 
         //consulta a api
-        $customers = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers')->json();
+        $customers = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers?page='.$page)->json();
 
         //filtrando atributos
         $customers = Arr::map($customers['data'], function ($item){
