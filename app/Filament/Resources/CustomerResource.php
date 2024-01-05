@@ -43,7 +43,7 @@ class CustomerResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultPaginationPageOption(15)
+            ->paginated(['all'])
             ->columns([
                 //
                 TextColumn::make('name')
