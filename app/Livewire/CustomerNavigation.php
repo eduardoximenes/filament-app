@@ -18,10 +18,35 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     use InteractsWithForms;
 
     public $page = 1;
-    public $metaData;
     public $totalPages = 3;
     public $customers = null;
+    public $customerArray = [];
+    public $metaData = [];
 
+    public function mount()
+    {
+       $this->initalCustomers();
+       $this->loadTable();
+    }
+
+    public function initalCustomers()
+    {
+        $user = new User;
+        $apiToken = $user->getToken();
+
+        // Make a request to your second API and update the customers property
+        $response = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers?page='.$this->page);
+
+        $data = $response->json();
+
+        // Update customers property with new results
+        $this->customers = $data;
+    }
+
+    public function loadTable()
+    {
+        $this->customerArray = $this->customers["data"];
+    }
     protected function lastPage(): bool
     {
         if($this->customers != null){
@@ -49,6 +74,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
 
                 // Update customers property with new results
                 $this->customers = $data;
+                $this->loadTable();
             });
     }
 
@@ -71,6 +97,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
 
                     // Update customers property with new results
                     $this->customers = $data;
+                    $this->loadTable();
                }
             });
     }
@@ -82,7 +109,6 @@ class CustomerNavigation extends Component implements HasForms, HasActions
             //
            });
     }
-
 
     public function render()
     {
