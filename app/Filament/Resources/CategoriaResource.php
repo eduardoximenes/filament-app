@@ -21,6 +21,8 @@ class CategoriaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-folder';
     protected static ?string $modelLabel = 'Post Categories';
+    protected static ?int $navigationSort = 5;
+
 
     public static function form(Form $form): Form
     {

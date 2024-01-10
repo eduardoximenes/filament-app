@@ -29,6 +29,9 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left';
 
+    protected static ?int $navigationSort = 4;
+
+
     public static function form(Form $form): Form
     {
         return $form
