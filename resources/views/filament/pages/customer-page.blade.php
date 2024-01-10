@@ -1,7 +1,5 @@
 <x-filament-panels::page>
 
-    <livewire:next-customer />
-
-    {{-- <livewire:customer-table /> --}}
+    <livewire:customer-table />
 
 </x-filament-panels::page>
