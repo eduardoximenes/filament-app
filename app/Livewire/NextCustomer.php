@@ -19,7 +19,7 @@ class NextCustomer extends Component implements HasForms, HasActions
 
     public function nextCustomer(): Action
     {
-        return Action::make("Next")->query(Customer::)
+        return Action::make("Next")->query()
         ->action(function (): void {
             $arr = Customer::getRows(17);
             dd($arr);
