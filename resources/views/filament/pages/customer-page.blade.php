@@ -1,5 +1,5 @@
 <x-filament-panels::page>
 
-    <livewire:customer-table />
+    <livewire:customer-navigation />
 
 </x-filament-panels::page>
