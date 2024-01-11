@@ -14,7 +14,7 @@ use App\Models\User;
 class CreateCustomer extends CreateRecord
 {
     protected static string $resource = CustomerResource::class;
-    
+
     protected function handleRecordCreation(array $data): Customer
     {
         $user = new User;

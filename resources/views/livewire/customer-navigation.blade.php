@@ -1,6 +1,7 @@
 <div>
     {{-- Be like water. --}}
     <div>
+        {{ $this->createAction }}
         {{ $this->previousAction }}
         {{ $this->nextAction }}
     </div>
@@ -23,17 +24,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($customerArray as $data)
+                                @foreach ($customerArray as $customer)
                                     <tr class="border-b dark:border-gray-700">
                                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $data['name'] }}</th>
-                                        <td class="px-4 py-3">{{ $data['type'] }}</td>
-                                        <td class="px-4 py-3">{{ $data['email'] }}</td>
-                                        <td class="px-4 py-3">{{ $data['postalCode'] }}</td>
+                                            {{ $customer['name'] }}</th>
+                                        <td class="px-4 py-3">{{ $customer['type'] }}</td>
+                                        <td class="px-4 py-3">{{ $customer['email'] }}</td>
+                                        <td class="px-4 py-3">{{ $customer['postalCode'] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="py-4 px-3">
+                        
                     </div>
                 </div>
             </div>

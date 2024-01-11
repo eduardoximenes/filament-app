@@ -2,15 +2,25 @@
 
 namespace App\Livewire;
 
+use App\Models\Customer;
 use App\Models\User;
+use App\Services\CustomerForm;
+use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 use Filament\Actions\Action;
+use Filament\Actions;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Form;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Contracts\View\View;
+use Filament\Forms;
 
 class CustomerNavigation extends Component implements HasForms, HasActions
 {
@@ -19,9 +29,15 @@ class CustomerNavigation extends Component implements HasForms, HasActions
 
     public $page = 1;
     public $totalPages = 3;
+
+    //receive the request from the api
     public $customers = null;
+    // receive the data from the api
     public $customerArray = [];
+    //receive the meta data from the api
     public $metaData = [];
+
+    public $formData = [];
 
     public function mount()
     {
@@ -105,9 +121,9 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     public function createAction(): Action
     {
         return Action::make('New Customer')
-        ->action(function (): void {
-            //
-           });
+        ->url(route('filament.admin.resources.customers.index'))
+        ->color("success")
+        ->outlined();
     }
 
     public function render()
