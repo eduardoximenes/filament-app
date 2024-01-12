@@ -27,7 +27,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     use InteractsWithActions;
     use InteractsWithForms;
 
-    public $page = 1;
+    public $page = 16;
     public $totalPages = 3;
 
     //receive the request from the api
@@ -76,6 +76,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     public function nextAction(): Action
     {
         return Action::make('Next')
+            ->outlined()
             ->disabled($this->lastPage())
             ->after(function (){
                 $this->page += 1;
@@ -99,6 +100,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     {
         return Action::make('Previous')
             ->disabled($this->page == 1)
+            ->outlined()
             ->after(function (): void {
                 if($this->page > 1){
                     $this->page -= 1;
@@ -121,9 +123,9 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     public function createAction(): Action
     {
         return Action::make('New Customer')
-        ->url(route('filament.admin.resources.customers.index'))
+        ->url(route('filament.admin.resources.customers.create'))
         ->color("success")
-        ->outlined();
+        ;
     }
 
     public function render()
