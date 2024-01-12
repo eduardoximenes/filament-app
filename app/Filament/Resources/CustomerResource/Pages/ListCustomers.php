@@ -17,19 +17,10 @@ class ListCustomers extends ListRecords
 
     protected static string $view = 'filament.pages.customer-page';
 
-    // protected function getHeaderActions(): array
-    // {
-    //     return [
-    //        Actions\CreateAction::make()->color('success')->outlined(),
-    //        Actions\Action::make('Previous')
-    //             ->action(function (): void {
-    //                 $paginate = new Customer;
-    //                 $paginate->getRows(17);
-    //             }),
-    //        Actions\Action::make('Next')
-    //        ->action(function (): void {
-    //              //
-    //             }),
-    //     ];
-    // }
+    protected function getHeaderActions(): array
+    {
+        return [
+           Actions\CreateAction::make()->color('success')->outlined()
+        ];
+    }
 }
