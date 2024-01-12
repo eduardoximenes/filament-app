@@ -1,12 +1,8 @@
 <div>
     {{-- Be like water. --}}
-    <div style="display: flex; justify-content: flex-end;">
-        <div style="margin-right: 5px;">
-            {{ $this->previousAction }}
-        </div>
-    	<div>
-			{{ $this->nextAction }}
-		</div>
+    <div>
+        {{ $this->previousAction }}
+        {{ $this->nextAction }}
     </div>
     <div>
         @vite('resources/css/app.css')
@@ -27,7 +23,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
-                                @foreach ($customerArray as $customer)
+                                @foreach ($customerData as $customer)
                                     <tr>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $customer['name'] }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $customer['type'] }}</td>
@@ -48,13 +44,13 @@
                                 </div>
                                 <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                                   <div>
-                                    <p class="text-sm text-gray-700">
+                                    <p class="text-sm text-gray-700" wire:poll.5000ms="updateSpanContent">
                                       Showing
-                                      <span class="font-medium">1</span>
+                                      <span class="font-medium"wire:model="fromCustomer">{{ $fromCustomer }}</span>
                                       to
-                                      <span class="font-medium">10</span>
+                                      <span class="font-medium"wire:model="toCustomer">{{ $toCustomer }}</span>
                                       of
-                                      <span class="font-medium">97</span>
+                                      <span class="font-medium" wire:model="totalCustomers">{{ $totalCustomers }}</span>
                                       results
                                     </p>
                                   </div>
@@ -83,7 +79,7 @@
                                     </nav>
                                   </div>
                                 </div>
-                              </div>
+                            </div>
 
                         </div>
                     </div>

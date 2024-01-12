@@ -27,22 +27,26 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     use InteractsWithActions;
     use InteractsWithForms;
 
-    public $page = 16;
-    public $totalPages = 3;
-
     //receive the request from the api
     public $customers = null;
     // receive the data from the api
-    public $customerArray = [];
+    public $customerData = [];
     //receive the meta data from the api
     public $metaData = [];
 
-    public $formData = [];
+    public $page = 1;
+    public $totalPages = null;
+    public $fromCustomer = null;
+    public $toCustomer = null;
+    public $totalCustomers= null;
 
     public function mount()
     {
-       $this->initalCustomers();
-       $this->loadTable();
+        $this->initalCustomers();
+        $this->loadTable();
+        $this->updateSpanContent();
+        $this->totalCustomers = $this->metaData["total"];
+        $this->totalPages = $this->metaData["last_page"];
     }
 
     public function initalCustomers()
@@ -51,7 +55,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         $apiToken = $user->getToken();
 
         // Make a request to your second API and update the customers property
-        $response = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers?page='.$this->page);
+        $response = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers?page=1');
 
         $data = $response->json();
 
@@ -61,23 +65,23 @@ class CustomerNavigation extends Component implements HasForms, HasActions
 
     public function loadTable()
     {
-        $this->customerArray = $this->customers["data"];
+        //atualizo os customers
+        $this->customerData = $this->customers["data"];
     }
-    protected function lastPage(): bool
-    {
-        if($this->customers != null){
-            $this->metaData =  $this->customers["meta"];
-            $this->totalPages = $this->metaData["last_page"];
-        }
 
-        return $this->totalPages == $this->page;
+    public function updateSpanContent()
+    {
+        //atualizo a navegação/paginação
+        $this->metaData = $this->customers["meta"];
+        $this->fromCustomer = $this->metaData["from"];
+        $this->toCustomer = $this->metaData["to"];
     }
 
     public function nextAction(): Action
     {
         return Action::make('Next')
             ->outlined()
-            ->disabled($this->lastPage())
+            ->disabled($this->totalPages == $this->page)
             ->after(function (){
                 $this->page += 1;
 
@@ -92,9 +96,9 @@ class CustomerNavigation extends Component implements HasForms, HasActions
                 // Update customers property with new results
                 $this->customers = $data;
                 $this->loadTable();
+                $this->updateSpanContent();
             });
     }
-
 
     public function previousAction(): Action
     {
@@ -116,6 +120,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
                     // Update customers property with new results
                     $this->customers = $data;
                     $this->loadTable();
+                    $this->updateSpanContent();
                }
             });
     }
@@ -124,8 +129,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     {
         return Action::make('New Customer')
         ->url(route('filament.admin.resources.customers.create'))
-        ->color("success")
-        ;
+        ->color("success");
     }
 
     public function render()
