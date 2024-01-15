@@ -77,6 +77,45 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         $this->toCustomer = $this->metaData["to"];
     }
 
+    public function syncData()
+    {
+        $user = new User;
+        $apiToken = $user->getToken();
+
+        // Make a request to your second API and update the customers property
+        $response = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers?page='.$this->page);
+
+        $apiResponse = $response->json();
+
+        // Update customers property with new results
+        $this->customers = $apiResponse;
+        $this->loadTable();
+        $this->updateSpanContent();
+    }
+
+        public function previousPage()
+    {
+        if ($this->page > 1) {
+            $this->page--;
+            $this->syncData();
+        }
+    }
+
+    public function nextPage()
+    {
+        if ($this->page < $this->totalPages) {
+            $this->page++;
+            $this->syncData();
+        }
+    }
+
+    public function goToPage($page)
+    {
+        $this->page = $page;
+        $this->syncData();
+    }
+
+
     public function nextAction(): Action
     {
         return Action::make('Next')
@@ -85,18 +124,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
             ->after(function (){
                 $this->page += 1;
 
-                $user = new User;
-                $apiToken = $user->getToken();
-
-                // Make a request to your second API and update the customers property
-                $response = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers?page='.$this->page);
-
-                $data = $response->json();
-
-                // Update customers property with new results
-                $this->customers = $data;
-                $this->loadTable();
-                $this->updateSpanContent();
+                $this->syncData();
             });
     }
 
@@ -109,18 +137,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
                 if($this->page > 1){
                     $this->page -= 1;
 
-                    $user = new User;
-                    $apiToken = $user->getToken();
-
-                    // Make a request to your second API and update the customers property
-                    $response = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers?page='.$this->page);
-
-                    $data = $response->json();
-
-                    // Update customers property with new results
-                    $this->customers = $data;
-                    $this->loadTable();
-                    $this->updateSpanContent();
+                    $this->syncData();
                }
             });
     }
