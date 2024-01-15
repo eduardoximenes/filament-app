@@ -42,39 +42,9 @@ class CustomerNavigation extends Component implements HasForms, HasActions
 
     public function mount()
     {
-        $this->initalCustomers();
-        $this->loadTable();
-        $this->updateSpanContent();
+        $this->syncData();
         $this->totalCustomers = $this->metaData["total"];
         $this->totalPages = $this->metaData["last_page"];
-    }
-
-    public function initalCustomers()
-    {
-        $user = new User;
-        $apiToken = $user->getToken();
-
-        // Make a request to your second API and update the customers property
-        $response = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers?page=1');
-
-        $data = $response->json();
-
-        // Update customers property with new results
-        $this->customers = $data;
-    }
-
-    public function loadTable()
-    {
-        //atualizo os customers
-        $this->customerData = $this->customers["data"];
-    }
-
-    public function updateSpanContent()
-    {
-        //atualizo a navegação/paginação
-        $this->metaData = $this->customers["meta"];
-        $this->fromCustomer = $this->metaData["from"];
-        $this->toCustomer = $this->metaData["to"];
     }
 
     public function syncData()
@@ -93,7 +63,21 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         $this->updateSpanContent();
     }
 
-        public function previousPage()
+    public function loadTable()
+    {
+        //atualizo os customers
+        $this->customerData = $this->customers["data"];
+    }
+
+    public function updateSpanContent()
+    {
+        //atualizo a navegação/paginação
+        $this->metaData = $this->customers["meta"];
+        $this->fromCustomer = $this->metaData["from"];
+        $this->toCustomer = $this->metaData["to"];
+    }
+
+    public function previousPage()
     {
         if ($this->page > 1) {
             $this->page--;
