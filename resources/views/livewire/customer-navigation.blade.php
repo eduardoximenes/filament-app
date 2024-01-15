@@ -30,7 +30,7 @@
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $customer['email'] }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $customer['postalCode'] }}</td>
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                           <a href="#" class="text-amber-600 hover:text-amber-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
+                                            <a href="#" class="text-amber-600 hover:underline">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
