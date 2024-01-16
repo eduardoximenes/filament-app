@@ -18,19 +18,20 @@
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-950">Email</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-950">Postal Code</th>
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                            <span class="sr-only">Edit</span>
+                                            <span class="sr-only">Actions</span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
-                                @foreach ($customerData as $customer)
+                                    @foreach ($customerData as $customer)
                                     <tr>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $customer['name'] }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $customer['type'] }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $customer['email'] }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $customer['postalCode'] }}</td>
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                            <a href="#" class="text-amber-600 hover:underline">Edit</a>
+                                            <span class="font-bold">{{ $this->editAction }}</span>
+                                            <span class="font-bold">{{ ($this->deleteAction)(['customer' => $customer['id']]) }}</span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -100,4 +101,5 @@
                 </div>
             </div>
     </div>
+    <x-filament-actions::modals />
 </div>

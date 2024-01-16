@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Services\CustomerForm;
 use Filament\Actions\CreateAction;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -131,6 +132,43 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         return Action::make('New Customer')
         ->url(route('filament.admin.resources.customers.create'))
         ->color("success");
+    }
+
+    public function editAction(): Action
+    {
+        return Action::make('edit')
+            ->link()
+            ->icon('heroicon-m-pencil-square');
+    }
+    public function deleteAction(): Action
+    {
+        return Action::make('delete')
+            ->color('danger')
+            ->link()
+            ->icon('heroicon-s-trash')
+            ->requiresConfirmation()
+            ->action(function (array $arguments) {
+                $user = new User;
+                $apiToken = $user->getToken();
+
+                $attempt = Http::withToken($apiToken, $type = 'Bearer')->delete("http://localhost:8001/api/v1/customers/{$arguments['customer']}", [])->json();
+
+                if($attempt == null){
+                    Notification::make()
+                            ->title("Unsuccessful deletion!")
+                            ->danger()
+                            ->send();
+
+                    return null;
+                }
+
+                Notification::make()
+                ->title("Deleted!")
+                ->danger()
+                ->send();
+
+                $this->syncData();
+            });
     }
 
     public function render()
