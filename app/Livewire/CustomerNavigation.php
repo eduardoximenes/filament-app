@@ -138,7 +138,44 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     {
         return Action::make('edit')
             ->link()
-            ->icon('heroicon-m-pencil-square');
+            ->icon('heroicon-m-pencil-square')
+            ->form(CustomerForm::schema())
+            ->fillForm(fn (array $arguments): array => [
+                'name' =>        $arguments['name'],
+                'type' =>        $arguments['type'],
+                'email' =>       $arguments['email'],
+                'address' =>     $arguments['address'],
+                'city' =>        $arguments['city'],
+                'state' =>       $arguments['state'],
+                'postalCode' =>  $arguments['postalCode'],
+            ])
+            ->action(function (array $data, array $arguments, Action $action){
+                $user = new User;
+                $apiToken = $user->getToken();
+
+                $attempt = Http::withToken($apiToken, $type = 'Bearer')->patch("http://localhost:8001/api/v1/customers/{$arguments['id']}", $data)->json();
+
+                if($data['type'] != 'I' && $data['type'] != 'i' && $data['type'] != 'B' && $data['type'] != 'b'){
+                    Notification::make()
+                        ->title("Type not valid!")
+                        ->danger()
+                        ->send();
+
+                    $action->halt();
+                    $action->cancel();
+                }
+                else if( $attempt == null ){
+                    Notification::make()
+                        ->title("Credentials not valid!")
+                        ->danger()
+                        ->send();
+
+                    $action->halt();
+                    $action->cancel();
+                }
+
+                $this->syncData();
+            });
     }
     public function deleteAction(): Action
     {
