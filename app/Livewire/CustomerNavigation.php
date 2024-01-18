@@ -40,6 +40,8 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     public $fromCustomer = null;
     public $toCustomer = null;
     public $totalCustomers= null;
+    public $sortDirection = null;
+
 
     public function mount()
     {
@@ -54,7 +56,12 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         $apiToken = $user->getToken();
 
         // Make a request to your second API and update the customers property
-        $response = Http::withToken($apiToken, $type = 'Bearer')->get('http://localhost:8001/api/v1/customers?page='.$this->page);
+        $response = Http::withToken($apiToken, 'Bearer')
+        ->get('http://localhost:8001/api/v1/customers', [
+            'page' => $this->page,
+            'orderBy' => 'name',
+            'sortOrder' => $this->sortDirection,
+        ]);
 
         $apiResponse = $response->json();
 
@@ -98,6 +105,20 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     {
         $this->page = $page;
         $this->syncData();
+    }
+
+    public function toggleSort()
+    {
+        if ($this->sortDirection === null) {
+            $this->sortDirection = 'asc';
+            $this->syncData();
+        } elseif ($this->sortDirection === 'asc') {
+            $this->sortDirection = 'desc';
+            $this->syncData();
+        } else {
+            $this->sortDirection = null;
+            $this->syncData();
+        }
     }
 
 
