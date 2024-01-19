@@ -128,39 +128,6 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         $this->syncData();
     }
 
-    public function nextAction(): Action
-    {
-        return Action::make('Next')
-            ->outlined()
-            ->disabled($this->totalPages == $this->page)
-            ->after(function (){
-                $this->page += 1;
-
-                $this->syncData();
-            });
-    }
-
-    public function previousAction(): Action
-    {
-        return Action::make('Previous')
-            ->disabled($this->page == 1)
-            ->outlined()
-            ->after(function (): void {
-                if($this->page > 1){
-                    $this->page -= 1;
-
-                    $this->syncData();
-               }
-            });
-    }
-
-    public function createAction(): Action
-    {
-        return Action::make('New Customer')
-        ->url(route('filament.admin.resources.customers.create'))
-        ->color("success");
-    }
-
     public function editAction(): Action
     {
         return Action::make('edit')
@@ -204,6 +171,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
                 $this->syncData();
             });
     }
+
     public function deleteAction(): Action
     {
         return Action::make('delete')
