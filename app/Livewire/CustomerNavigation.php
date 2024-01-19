@@ -41,13 +41,12 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     public $toCustomer = null;
     public $totalCustomers= null;
     public $sortDirection = null;
+    public $searchQuery ='';
 
 
     public function mount()
     {
         $this->syncData();
-        $this->totalCustomers = $this->metaData["total"];
-        $this->totalPages = $this->metaData["last_page"];
     }
 
     public function syncData()
@@ -61,6 +60,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
             'page' => $this->page,
             'orderBy' => 'name',
             'sortOrder' => $this->sortDirection,
+            'name'=> $this->searchQuery,
         ]);
 
         $apiResponse = $response->json();
@@ -83,6 +83,8 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         $this->metaData = $this->customers["meta"];
         $this->fromCustomer = $this->metaData["from"];
         $this->toCustomer = $this->metaData["to"];
+        $this->totalCustomers = $this->metaData["total"];
+        $this->totalPages = $this->metaData["last_page"];
     }
 
     public function previousPage()
@@ -121,6 +123,10 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         }
     }
 
+    public function searchBar()
+    {
+        $this->syncData();
+    }
 
     public function nextAction(): Action
     {
