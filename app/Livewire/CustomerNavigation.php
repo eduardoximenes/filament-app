@@ -123,9 +123,13 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         }
     }
 
-    public function searchBar()
+    public function updatedSearchQuery()
     {
         $this->syncData();
+
+        if($this->searchQuery == '')
+            $this->page=1;
+
     }
 
     public function editAction(): Action
