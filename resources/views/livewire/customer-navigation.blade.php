@@ -8,6 +8,13 @@
                 </svg>
             </div>
             <input wire:model.live.debounce.500ms="searchQuery" type="text" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full sm:w-64 bg-gray-50 focus:outline-none focus:border-amber-600 focus:ring-amber-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:outline-none dark:focus:border-amber-500 dark:focus:ring-amber-500" placeholder="Search for customers">
+            @if(!empty($searchQuery))
+                <button type="reset" title="Clear the query" class="DocSearch-Reset absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" aria-label="Clear the query" wire:click="clearSearchQuery">
+                    <svg width="15" height="15" viewBox="0 0 20 20">
+                        <path d="M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            @endif
         </div>
     </div>
     <div>

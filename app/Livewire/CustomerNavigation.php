@@ -154,6 +154,13 @@ class CustomerNavigation extends Component implements HasForms, HasActions
 
     }
 
+    public function clearSearchQuery()
+    {
+        $this->searchQuery = '';
+        $this->updatedSearchQuery();
+
+    }
+
     public function editAction(): Action
     {
         return Action::make('edit')
