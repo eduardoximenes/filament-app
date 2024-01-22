@@ -137,9 +137,10 @@
                                         </nav>
                                     </div>
                                     </div>
-                                    <x-filament-actions::modals />
+
                                 </div>
                             @endif
+                            <x-filament-actions::modals />
                         </div>
                     </div>
                 </div>

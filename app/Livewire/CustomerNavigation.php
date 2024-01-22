@@ -159,6 +159,10 @@ class CustomerNavigation extends Component implements HasForms, HasActions
         return Action::make('edit')
             ->link()
             ->icon('heroicon-m-pencil-square')
+            ->modalSubmitAction(false)
+            ->extraModalFooterActions(fn (Action $action): array => [
+                $action->makeModalSubmitAction('ConfirmEdit', arguments: ['another' => true]),
+            ])
             ->form(CustomerForm::schema())
             ->fillForm(fn (array $arguments): array => [
                 'name' =>        $arguments['name'],
@@ -205,6 +209,10 @@ class CustomerNavigation extends Component implements HasForms, HasActions
             ->link()
             ->icon('heroicon-s-trash')
             ->requiresConfirmation()
+            ->modalSubmitAction(false)
+            ->extraModalFooterActions(fn (Action $action): array => [
+                $action->makeModalSubmitAction('ConfirmDeletion', arguments: ['another' => true]),
+            ])
             ->action(function (array $arguments) {
                 $user = new User;
                 $apiToken = $user->getToken();
@@ -216,8 +224,6 @@ class CustomerNavigation extends Component implements HasForms, HasActions
                             ->title("Unsuccessful deletion!")
                             ->danger()
                             ->send();
-
-                    return null;
                 }
 
                 Notification::make()
