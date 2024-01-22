@@ -41,6 +41,7 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     public $toCustomer = null;
     public $totalCustomers= null;
     public $sortDirection = null;
+    public $sortDirection2 = null;
     public $searchQuery ='';
 
 
@@ -60,6 +61,8 @@ class CustomerNavigation extends Component implements HasForms, HasActions
             'page' => $this->page,
             'orderBy' => 'name',
             'sortOrder' => $this->sortDirection,
+            'orderBy2' => 'type',
+            'sortOrder2' => $this->sortDirection2,
             'name'=> $this->searchQuery,
         ]);
 
@@ -113,22 +116,41 @@ class CustomerNavigation extends Component implements HasForms, HasActions
     {
         if ($this->sortDirection === null) {
             $this->sortDirection = 'asc';
-            $this->syncData();
+            $this->sortDirection2 = null;
         } elseif ($this->sortDirection === 'asc') {
             $this->sortDirection = 'desc';
-            $this->syncData();
+            $this->sortDirection2 = null;
         } else {
             $this->sortDirection = null;
-            $this->syncData();
+            $this->sortDirection2 = null;
         }
+
+        $this->syncData();
     }
+    public function toggleSort2()
+    {
+        if ($this->sortDirection2 === null) {
+            $this->sortDirection2 = 'asc';
+            $this->sortDirection = null;
+        } elseif ($this->sortDirection2 === 'asc') {
+            $this->sortDirection2 = 'desc';
+            $this->sortDirection = null;
+        } else {
+            $this->sortDirection2 = null;
+            $this->sortDirection = null;
+        }
+
+        $this->syncData();
+    }
+
 
     public function updatedSearchQuery()
     {
+        $this->page = 1;
         $this->syncData();
 
         if($this->searchQuery == '')
-            $this->page=1;
+            $this->page = 1;
 
     }
 
