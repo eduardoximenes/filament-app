@@ -8,8 +8,14 @@
 </p>
 
 ## Sobre
-    Ao integrar o Filament com uma API era necessário usufruir do pacote Sushi. No entanto, este possui algumas limitações, como não permitir que naveguemos entre as páginas de uma API. Posto isso, utilizei da opção de integrar componentes customizáveis (feitos com TailwindCSS & Livewire) ao Filament, para que fosse possível exibir meus resultados em uma tabela, navegar entre as páginas, realizar consultas (filtrar e ordenar), criar, deletar e editar registros. Em partes ainda se fez necessário o uso do pacote Sushi, uma vez que este facilita o trabalho e já estava pronto.
-    Por exemplo, ao criar registros novos, a tela de criar (CreateCustomer) é fruto de um resource criado anteriormente, e esta utiliza do pacote para realizar a operação.
+    Ao integrar o Filament com uma API era necessário usufruir do pacote Sushi. No entanto, este possui algumas limitações,
+    como não permitir que naveguemos entre as páginas de uma API.
+    Posto isso, utilizei da opção de integrar componentes customizáveis (feitos com TailwindCSS & Livewire) ao Filament,
+    para que fosse possível exibir meus resultados em uma tabela, navegar entre as páginas, realizar consultas (filtrar e ordenar),
+    criar, deletar e editar registros.
+    Em partes ainda se fez necessário o uso do pacote Sushi, uma vez que este facilita o trabalho e já estava pronto.
+    Por exemplo, ao criar registros novos, a tela de criar (CreateCustomer) é fruto de um resource criado anteriormente,
+    e esta utiliza do pacote para realizar a operação.
 
 ## Possíveis melhorias
     - Testar mais a fundo a responsividade da aplicação;
