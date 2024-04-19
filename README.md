@@ -13,14 +13,11 @@
     acesse: resources/views/livewire/customer-navigation.blade.php
 
 ## Sobre
-    Ao integrar o Filament com uma API era necessário usufruir do pacote Sushi. No entanto, este possui algumas limitações,
-    como não permitir que naveguemos entre as páginas de uma API.
-    Posto isso, utilizei da opção de integrar componentes customizáveis (feitos com TailwindCSS & Livewire) ao Filament,
-    para que fosse possível exibir meus resultados em uma tabela, navegar entre as páginas, realizar consultas (filtrar e ordenar),
-    criar, deletar e editar registros.
-    Em partes ainda se fez necessário o uso do pacote Sushi, uma vez que este facilita o trabalho e já estava pronto.
-    Por exemplo, ao criar registros novos, a tela de criar (CreateCustomer) é fruto de um resource criado anteriormente,
-    e esta utilizando pacote para realizar a operação.
+• O painel de administração Filament, acessa APIs externas por meio do pacote Sushi. No entanto, este pacote não
+conta com a possibilidade de iterar entre pginas de uma API.
+• O projeto consistiu em criar um componente customizável que resolve este problema e disponibilizá-lo.
+• Desenvolvi uma aplicação full stack usando Laravel para servir uma API REST e da ”TALL” stack como frontend,
+o que possibilitou a criação do componente.
 
 ## Possíveis melhorias
     - Testar mais a fundo a responsividade da aplicação;
