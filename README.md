@@ -7,6 +7,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Componente 
+    acesse: customer-navigation
+
 ## Sobre
     Ao integrar o Filament com uma API era necessário usufruir do pacote Sushi. No entanto, este possui algumas limitações,
     como não permitir que naveguemos entre as páginas de uma API.
@@ -15,7 +18,7 @@
     criar, deletar e editar registros.
     Em partes ainda se fez necessário o uso do pacote Sushi, uma vez que este facilita o trabalho e já estava pronto.
     Por exemplo, ao criar registros novos, a tela de criar (CreateCustomer) é fruto de um resource criado anteriormente,
-    e esta utiliza do pacote para realizar a operação.
+    e esta utilizando pacote para realizar a operação.
 
 ## Possíveis melhorias
     - Testar mais a fundo a responsividade da aplicação;
