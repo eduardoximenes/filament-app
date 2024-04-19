@@ -13,11 +13,11 @@
     acesse: resources/views/livewire/customer-navigation.blade.php
 
 ## Sobre
-• O painel de administração Filament, acessa APIs externas por meio do pacote Sushi. No entanto, este pacote não
-conta com a possibilidade de iterar entre pginas de uma API.
-• O projeto consistiu em criar um componente customizável que resolve este problema e disponibilizá-lo.
-• Desenvolvi uma aplicação full stack usando Laravel para servir uma API REST e da ”TALL” stack como frontend,
-o que possibilitou a criação do componente.
+    - O painel de administração Filament, acessa APIs externas por meio do pacote Sushi. No entanto, este pacote não
+conta com a possibilidade de iterar entre páginas de uma API;
+    - O projeto consistiu em criar um componente customizável que resolve este problema e disponibilizá-lo;
+    - Desenvolvi uma aplicação full stack usando Laravel para servir uma API REST e da ”TALL” stack como frontend,
+o que possibilitou a criação do componente;
 
 ## Possíveis melhorias
     - Testar mais a fundo a responsividade da aplicação;
