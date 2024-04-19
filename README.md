@@ -8,7 +8,9 @@
 </p>
 
 ## Componente 
-    acesse: customer-navigation
+    acesse: app/Filament/Pages/CustomerPage.php
+    acesse: resources/views/filament/pages/customer-page.blade.php
+    acesse: resources/views/livewire/customer-navigation.blade.php
 
 ## Sobre
     Ao integrar o Filament com uma API era necessário usufruir do pacote Sushi. No entanto, este possui algumas limitações,
